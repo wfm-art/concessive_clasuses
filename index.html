@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Review: Concessive Clauses</title>
+    
+    <style>
+        :root {
+            --ser-blue: #007AFF;
+            --ser-light: #E5F1FF;
+            --tener-orange: #FF9500;
+            --tener-light: #FFF4E5;
+            --green: #34C759;
+            --red: #FF3B30;
+            
+            /* Glassmorphism Light Theme */
+            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --text-main: #1d1d1f;
+            --text-muted: #515154;
+            --tab-bg: rgba(255, 255, 255, 0.4);
+            --tab-active: rgba(255, 255, 255, 0.9);
+            --card-inner-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        /* --- Dark Mode Variables --- */
+        body.dark-mode {
+            --bg-gradient: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+            --glass-bg: rgba(30, 30, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --tab-bg: rgba(0, 0, 0, 0.3);
+            --tab-active: rgba(50, 50, 50, 0.85);
+            --card-inner-bg: rgba(40, 40, 40, 0.5);
+            --ser-light: #003d80;
+            --tener-light: #804a00;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            transition: background 0.5s ease, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* Floating Background Emojis */
+        #floating-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        header {
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        header h1 { margin: 0; font-size: 2.8em; font-weight: 800; background: linear-gradient(45deg, var(--ser-blue), var(--tener-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header p { font-size: 1.2em; font-weight: 500; color: var(--text-muted); margin: 5px 0 0; }
+
+        .header-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .control-button {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .control-button:hover { transform: translateY(-2px); background: var(--tab-active); }
+
+        /* Main Tabs */
+        .main-tab-nav {
+            display: flex;
+            background: var(--tab-bg);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0 10px;
+        }
+        .main-tab-nav button {
+            background: transparent; border: none; outline: none; cursor: pointer;
+            padding: 20px 25px; transition: 0.3s; font-size: 1.1em;
+            font-weight: 700; color: var(--text-muted); flex-grow: 1;
+            border-radius: 16px 16px 0 0; margin-top: 10px;
+        }
+        .main-tab-nav button:hover { background: rgba(255,255,255,0.2); }
+        .main-tab-nav button.active { 
+            background: var(--tab-active); 
+            color: var(--text-main);
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+        }
+
+        .main-tab-content { 
+            display: none; 
+            padding: 40px;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .main-tab-content.is-active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: var(--text-main); border-bottom: 2px solid var(--glass-border); padding-bottom: 10px; font-size: 2em; margin-top: 0; }
+        h3 { font-size: 1.5em; margin-top: 25px; }
+        
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        
+        .tense-box { 
+            background: var(--card-inner-bg); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 16px; 
+            padding: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+        .tense-box:hover { transform: translateY(-3px); }
+        .tense-box h3 { margin-top: 0; font-size: 1.8em; text-align: center; }
+        
+        .icon-wrapper { 
+            display: flex; justify-content: center; align-items: center;
+            height: 90px; margin-bottom: 15px; font-size: 4.5em; 
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .ser-theme h3 { color: var(--ser-blue); }
+        .tener-theme h3 { color: var(--tener-orange); }
+        .ser-highlight { color: var(--ser-blue); font-weight: bold; background: var(--ser-light); padding: 2px 6px; border-radius: 6px; }
+        .tener-highlight { color: var(--tener-orange); font-weight: bold; background: var(--tener-light); padding: 2px 6px; border-radius: 6px; }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--ser-blue), #0056b3); color: white; border: none; padding: 12px 24px;
+            border-radius: 12px; cursor: pointer; font-size: 1.05em; font-weight: bold; transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+        }
+        .button-primary:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,122,255,0.4); }
+        
+        .button-orange {
+            background: linear-gradient(135deg, var(--tener-orange), #d97b00); color: white; border: none; padding: 12px 24px;
+            border-radius: 12px; cursor: pointer; font-size: 1.05em; font-weight: bold; transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(255,149,0,0.3);
+        }
+        .button-orange:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(255,149,0,0.4); }
+
+        .button-secondary {
+            background: var(--card-inner-bg); color: var(--text-main); border: 1px solid var(--glass-border); padding: 10px 18px;
+            border-radius: 10px; cursor: pointer; font-size: 0.95em; font-weight: 600; transition: background 0.2s;
+        }
+        .button-secondary:hover { background: var(--glass-border); }
+
+        .tts-icon { font-size: 1.2em; cursor: pointer; margin-left: 10px; display: inline-block; transition: transform 0.2s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .tts-icon:hover { transform: scale(1.3); }
+        .speak-button {
+            appearance:none; -webkit-appearance:none; border:1px solid var(--glass-border); background:var(--glass-bg); color:var(--text-main);
+            width:42px; height:42px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+            font-size:1.15rem; margin-left:8px; vertical-align:middle; box-shadow:0 2px 8px rgba(0,0,0,.06); touch-action:manipulation;
+        }
+        .speak-button:active { transform:scale(.96); }
+        .speak-button.speaking { outline:3px solid rgba(52,199,89,.28); border-color:var(--green); }
+
+        .video-container {
+            position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 16px; background: #000; margin-top: 25px; box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .formula-visualizer {
+            background: var(--card-inner-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 30px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .formula-display { font-size: 1.5em; font-weight: bold; margin-top: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+        .formula-part {
+            padding: 10px 15px; border-radius: 12px; background: var(--glass-bg);
+            border: 2px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .formula-part.ser { border-color: var(--ser-blue); color: var(--ser-blue); }
+        .formula-part.tener { border-color: var(--tener-orange); color: var(--tener-orange); }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: var(--card-inner-bg); border-radius: 12px; overflow: hidden; }
+        th, td { border: 1px solid var(--glass-border); padding: 12px; text-align: center; }
+        th { background: rgba(0,0,0,0.05); font-weight: 700; color: var(--text-main); }
+        body.dark-mode th { background: rgba(255,255,255,0.05); }
+
+        .quiz-section { margin-bottom: 35px; padding-bottom: 35px; border-bottom: 2px dashed var(--glass-border); }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-header h3 { margin: 0; }
+        
+        .quiz-question { margin-bottom: 25px; background: var(--card-inner-bg); padding: 25px; border-radius: 16px; border: 1px solid var(--glass-border); box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .quiz-question p { font-size: 1.2em; font-weight: 500; margin-bottom: 15px; }
+        .quiz-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .quiz-options button { flex: 1; min-width: 120px; font-size: 1.1em; padding: 12px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; font-weight: bold; background: var(--glass-bg); color: var(--text-main); transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .quiz-options button:hover { border-color: var(--text-muted); transform: translateY(-2px); }
+        
+        .feedback-area { margin-top: 15px; font-weight: bold; font-size: 1.1em; display: none; padding: 10px; border-radius: 8px; }
+        .feedback-area.correct { display: block; background: rgba(52, 199, 89, 0.2); color: var(--green); border: 1px solid var(--green); }
+        .feedback-area.incorrect { display: block; background: rgba(255, 59, 48, 0.2); color: var(--red); border: 1px solid var(--red); }
+        
+        .interactive-story { background: var(--card-inner-bg); border: 1px solid var(--glass-border); padding: 30px; border-radius: 16px; font-size: 1.3em; line-height: 2.2; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
+        .interactive-story select { font-size: 1em; border: 2px solid var(--glass-border); border-radius: 8px; background: var(--glass-bg); color: var(--text-main); padding: 4px 10px; outline: none; font-weight: bold; cursor: pointer; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23777%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right .7em top 50%; background-size: .65em auto; padding-right: 1.5em; }
+        .interactive-story select:focus { border-color: var(--ser-blue); }
+        .interactive-story select.correct-sel { border-color: var(--green); background-color: rgba(52,199,89,0.1); }
+        .interactive-story select.incorrect-sel { border-color: var(--red); background-color: rgba(255,59,48,0.1); }
+        
+        /* Drag & Drop */
+        .sorter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 25px; }
+        .dropzone { min-height: 250px; background: var(--card-inner-bg); border: 3px dashed var(--glass-border); border-radius: 16px; padding: 15px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s; }
+        .dropzone.drag-over { background: rgba(0, 122, 255, 0.1); border-color: var(--ser-blue); }
+        .dropzone h4 { text-align: center; margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid var(--glass-border); font-size: 1.2em; }
+        
+        #items-to-sort { margin-top: 25px; padding: 20px; background: var(--card-inner-bg); border-radius: 16px; border: 1px solid var(--glass-border); }
+        #drag-items-pool { display: flex; flex-wrap: wrap; gap: 10px; min-height: 60px; }
+        .draggable { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 12px 18px; border-radius: 10px; cursor: grab; font-weight: 500; font-size: 1.1em; box-shadow: 0 4px 8px rgba(0,0,0,0.05); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; transition: transform 0.1s; }
+        .draggable:active { cursor: grabbing; transform: scale(0.95); }
+        .draggable.dragging { opacity: 0.5; }
+        .drag-touch-ghost { position: fixed; z-index: 9999; pointer-events: none; margin: 0; opacity: 0.95; transform: scale(1.03); }
+        
+        .flashcard-app { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+        .flashcard-container { width: 100%; max-width: 550px; height: 320px; perspective: 1000px; margin-bottom: 30px; }
+        .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); cursor: pointer; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .flashcard.is-flipped { transform: rotateY(180deg); }
+        
+        .card-face {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 30px; font-size: 1.8em; font-weight: bold;
+            border-radius: 20px; box-sizing: border-box; backdrop-filter: blur(10px);
+        }
+        .card-front { background: var(--glass-bg); border: 2px solid var(--glass-border); color: var(--text-main); }
+        .card-back { background: var(--ser-blue); color: white; transform: rotateY(180deg); border: 2px solid rgba(255,255,255,0.2); }
+        
+        .card-back p { margin: 15px 0 0; font-size: 0.6em; font-weight: normal; opacity: 0.9; }
+        .flashcard-nav { display: flex; justify-content: center; gap: 20px; width: 100%; max-width: 400px; }
+        .flashcard-nav button { flex: 1; }
+
+        /* General Utitlity */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 20px; }
+
+
+        /* --- HOW IT WORKS: interactive visual learning --- */
+        .how-flow { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:-4px 0 24px; }
+        .how-flow span { padding:7px 11px; border-radius:999px; background:var(--card-inner-bg); border:1px solid var(--glass-border); font-size:.82em; font-weight:800; color:var(--text-muted); }
+        .how-card { background:var(--card-inner-bg); border:1px solid var(--glass-border); border-radius:18px; padding:24px; margin:0 0 22px; box-shadow:0 4px 15px rgba(0,0,0,.03); }
+        .how-card h3 { margin:0 0 6px; font-size:1.45em; }
+        .how-card > p:first-of-type { margin-top:0; color:var(--text-muted); }
+        .visual-step { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:9px 14px; border-radius:12px; border:2px solid var(--glass-border); background:var(--glass-bg); font-weight:800; text-align:center; }
+        .visual-step.ser { border-color:var(--ser-blue); color:var(--ser-blue); background:var(--ser-light); }
+        .visual-step.tener { border-color:var(--tener-orange); color:var(--tener-orange); background:var(--tener-light); }
+        .visual-arrow { font-weight:900; color:var(--text-muted); font-size:1.35em; }
+        .mapping-line { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:9px; margin:18px 0; }
+        .pronoun-buttons, .concept-buttons, .builder-options { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0; }
+        .touch-choice { min-height:48px; padding:10px 15px; border-radius:12px; border:2px solid transparent; background:var(--glass-bg); color:var(--text-main); font-weight:800; font-size:1em; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:transform .15s, border-color .15s, background .15s; }
+        .touch-choice:hover, .touch-choice:focus { transform:translateY(-1px); border-color:var(--text-muted); outline:none; }
+        .touch-choice.active-ser { border-color:var(--ser-blue); background:var(--ser-light); color:var(--ser-blue); }
+        .touch-choice.active-tener { border-color:var(--tener-orange); background:var(--tener-light); color:var(--tener-orange); }
+        .choice-label { font-size:.78em; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; font-weight:900; margin-top:16px; }
+        .model-sentence { text-align:center; font-size:1.35em; font-weight:800; margin:14px 0 4px; }
+        .micro-note { text-align:center; color:var(--text-muted); font-size:.93em; margin:4px 0 0; }
+        .decision-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+        .verb-destination { min-height:128px; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:3px dashed var(--glass-border); cursor:pointer; padding:16px; transition:.2s; text-align:center; }
+        .verb-destination strong { font-size:1.6em; }
+        .verb-destination.ser:hover, .verb-destination.ser.selected { border-color:var(--ser-blue); background:var(--ser-light); color:var(--ser-blue); }
+        .verb-destination.tener:hover, .verb-destination.tener.selected { border-color:var(--tener-orange); background:var(--tener-light); color:var(--tener-orange); }
+        .concept-card { text-align:center; padding:18px; border-radius:16px; background:var(--glass-bg); border:1px solid var(--glass-border); margin-top:14px; }
+        .concept-icon { font-size:3em; display:block; line-height:1.1; }
+        .concept-name { font-size:1.25em; font-weight:900; margin-top:6px; }
+        .feedback-mini { display:none; margin-top:14px; border-radius:12px; padding:12px 14px; text-align:center; font-weight:800; }
+        .feedback-mini.show { display:block; }
+        .feedback-mini.correct { background:rgba(52,199,89,.16); border:1px solid var(--green); color:var(--text-main); }
+        .feedback-mini.try { background:rgba(255,149,0,.14); border:1px solid var(--tener-orange); color:var(--text-main); }
+        .builder-path { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-top:18px; }
+        .builder-result { margin-top:15px; text-align:center; font-size:1.45em; font-weight:900; min-height:42px; }
+        .reveal-box { text-align:center; margin-top:16px; }
+        .reveal-answer { display:none; margin:14px auto 0; max-width:650px; padding:16px; border-radius:14px; background:var(--glass-bg); border:1px solid var(--glass-border); }
+        .reveal-answer.show { display:block; animation:fadeIn .25s ease-out; }
+        .pattern-examples { display:grid; gap:9px; max-width:700px; margin:14px auto; }
+        .pattern-row { display:grid; grid-template-columns:110px 1fr; align-items:center; gap:10px; padding:9px 12px; border-radius:12px; background:var(--glass-bg); }
+        .quick-check-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:14px; }
+        .quick-check-item { padding:17px; border-radius:14px; background:var(--glass-bg); border:1px solid var(--glass-border); }
+        .quick-check-item p { margin-top:0; font-size:1.08em; font-weight:800; }
+        .quick-actions { display:flex; gap:8px; }
+        .quick-actions button { flex:1; min-height:44px; }
+        details.reference-panel { margin-top:20px; border-top:1px solid var(--glass-border); padding-top:16px; }
+        details.reference-panel summary { cursor:pointer; font-weight:800; color:var(--text-muted); }
+        .reference-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:16px; }
+        .mini-conj table { margin-bottom:0; }
+        @media (max-width:700px) {
+            .main-tab-content { padding:22px 16px; }
+            .decision-grid, .quick-check-grid, .reference-grid { grid-template-columns:1fr; }
+            .touch-choice { flex:1 1 calc(50% - 10px); }
+            .pattern-row { grid-template-columns:85px 1fr; }
+            .mapping-line { gap:6px; }
+            .visual-step { min-height:42px; padding:8px 10px; font-size:.95em; }
+        }
+        @media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+
+    </style>
+</head>
+<body>
+<div id="floating-bg"></div>
+<div class="container">
+<header><div class="header-controls"><button id="lang-toggle" class="control-button">EN / ES</button><button id="theme-toggle" class="control-button">☀️/🌙</button></div><h1 data-lang-key="header_title">CONCESSIVE CLAUSES</h1><p data-lang-key="header_subtitle">Expressing an obstacle that does not stop the action</p></header>
+<nav class="main-tab-nav">
+<button class="main-tab-link active" onclick="changeMainTab(event,'tab-metafora')" data-lang-key="tab_metaphor">🌟 The Big Idea</button>
+<button class="main-tab-link" onclick="changeMainTab(event,'tab-formacion')" data-lang-key="tab_formation">✍️ How It Works</button>
+<button class="main-tab-link" onclick="changeMainTab(event,'tab-practica')" data-lang-key="tab_practice">🎮 Practice Lab</button>
+<button class="main-tab-link" onclick="changeMainTab(event,'tab-flashcards')" data-lang-key="tab_flashcards">📇 Flashcards</button>
+</nav>
+<main>
+<div id="tab-metafora" class="main-tab-content is-active">
+<h2 data-lang-key="metaphor_title">Obstacle ≠ Stop</h2>
+<div class="comparison-grid">
+<div class="tense-box ser-theme"><div class="icon-wrapper">🚧</div><h3 data-lang-key="obstacle_title">CONCESSIVE CLAUSE</h3><p data-lang-key="obstacle_desc">Introduces an <strong>obstacle, difficulty, or contrasting idea</strong>.</p><p><span class="ser-highlight">Aunque no sepas pintar,</span></p></div>
+<div class="tense-box tener-theme"><div class="icon-wrapper">➡️ 🎨</div><h3 data-lang-key="main_title">MAIN CLAUSE</h3><p data-lang-key="main_desc">The action still happens <strong>despite</strong> that obstacle.</p><p><span class="tener-highlight">puedes venir al taller.</span></p></div>
+</div>
+<div class="formula-visualizer mt-4"><div class="formula-display"><span class="formula-part ser">🚧 Aunque no sepas pintar</span><span class="formula-part">+</span><span class="formula-part tener">➡️ puedes venir al taller</span></div><p class="model-sentence" data-lang-key="big_rule">The obstacle is real in the sentence, but it does not prevent the main action.</p></div>
+<h3 data-lang-key="viz_video_title" style="margin-top:40px;text-align:center;">Video Tutorial: Concessive Clauses</h3>
+<div class="video-container"><iframe src="https://drive.google.com/file/d/1IHGykcvMmkhCjIJ0NkuC2Z2zU4Xeburx/preview" allow="autoplay" allowfullscreen></iframe></div>
+<h3 data-lang-key="viz_title" style="margin-top:40px;text-align:center;">Interactive Structure Visualizer</h3><p data-lang-key="viz_desc" class="text-center">Choose a connector to see the structure and hear a model.</p>
+<div class="formula-visualizer"><div style="margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="button-primary" onclick="setVisualizer('noimporta')">No importa</button><button class="button-primary" onclick="setVisualizer('aunque')">Aunque</button><button class="button-orange" onclick="setVisualizer('apesar')">A pesar de que</button></div><div class="formula-display" id="viz-display"></div><p id="viz-example" style="font-size:1.3em;margin-top:15px;font-style:italic"></p><button class="speak-button" type="button" aria-label="Listen" onclick="speakElementText('viz-example',this)">🔊</button></div>
+</div>
+
+<div id="tab-formacion" class="main-tab-content"><h2 data-lang-key="form_title">How It Works</h2><div class="how-flow"><span>👀 SEE</span><span>→</span><span>🔎 NOTICE</span><span>→</span><span>👆 MANIPULATE</span><span>→</span><span>🔗 CONNECT</span><span>→</span><span>✓ CHECK</span></div>
+<section class="how-card"><h3 data-lang-key="how_explorer_title">1. See the two-part structure</h3><p data-lang-key="how_explorer_desc">Tap a connector. Watch the concessive clause and the main clause work together.</p><div class="pronoun-buttons" id="connector-buttons"><button class="touch-choice active-ser" onclick="selectConnector('noimporta',this)">No importa</button><button class="touch-choice" onclick="selectConnector('aunque',this)">Aunque</button><button class="touch-choice" onclick="selectConnector('apesar',this)">A pesar de que</button></div><div class="mapping-line"><span class="visual-step ser" id="map-connector">NO IMPORTA</span><span class="visual-arrow">+</span><span class="visual-step ser" id="map-concessive">qué experiencia tengas</span><span class="visual-arrow">→</span><span class="visual-step tener" id="map-main">puedes venir a pintar.</span><button class="speak-button" onclick="speakElementText('map-full',this)">🔊</button></div><p id="map-full" class="model-sentence">No importa qué experiencia tengas, puedes venir a pintar.</p><p class="micro-note" data-lang-key="how_explorer_note">First notice the connector. Then notice the verb form inside the concessive clause.</p></section>
+<section class="how-card"><h3 data-lang-key="how_decision_title">2. Which mood belongs here?</h3><p data-lang-key="how_decision_desc">Use the source pattern: NO IMPORTA and this use of AUNQUE take the subjunctive; A PESAR DE QUE is shown with the indicative.</p><div class="concept-buttons"><button class="touch-choice active-ser" onclick="setConcept(0,this)">🧩 No importa</button><button class="touch-choice" onclick="setConcept(1,this)">🔀 Aunque</button><button class="touch-choice" onclick="setConcept(2,this)">📌 A pesar de que</button></div><div class="concept-card"><span class="concept-icon" id="concept-icon">🧩</span><div class="concept-name" id="concept-name">NO IMPORTA + ?</div></div><div class="decision-grid"><button class="verb-destination ser" onclick="chooseMood('subjunctive')"><strong>SUBJUNCTIVE</strong><span>tengas · sepas</span></button><button class="verb-destination tener" onclick="chooseMood('indicative')"><strong>INDICATIVE</strong><span>estudié · sé</span></button></div><div id="concept-feedback" class="feedback-mini"></div></section>
+<section class="how-card"><h3 data-lang-key="how_builder_title">3. Build the sentence</h3><p data-lang-key="how_builder_desc">Choose the connector and the main idea. The app builds the visual path.</p><div class="choice-label" data-lang-key="builder_connector">Connector</div><div class="builder-options" id="builder-connectors"><button class="touch-choice active-ser" onclick="setBuilderConnector('noimporta',this)">No importa</button><button class="touch-choice" onclick="setBuilderConnector('aunque',this)">Aunque</button><button class="touch-choice" onclick="setBuilderConnector('apesar',this)">A pesar de que</button></div><div class="choice-label" data-lang-key="builder_idea">Situation</div><div class="builder-options" id="builder-ideas"><button class="touch-choice active-ser" onclick="setBuilderIdea(0,this)">🎨 experiencia</button><button class="touch-choice" onclick="setBuilderIdea(1,this)">🖌️ pintar</button><button class="touch-choice" onclick="setBuilderIdea(2,this)">🎓 Arte</button></div><div class="builder-path" id="builder-path"></div><div class="builder-result" id="builder-result"></div><div class="text-center"><button class="speak-button" onclick="speakElementText('builder-result',this)">🔊</button></div></section>
+<section class="how-card"><h3 data-lang-key="how_notice_title">4. Notice the pattern</h3><p data-lang-key="how_notice_desc">Compare the highlighted verbs before revealing the pattern.</p><div class="pattern-examples"><div class="pattern-row"><strong>No importa</strong><span id="pattern-a">qué experiencia <span class="ser-highlight">tengas</span>, puedes venir a pintar.</span><button class="speak-button" onclick="speakElementText('pattern-a',this)">🔊</button></div><div class="pattern-row"><strong>Aunque</strong><span id="pattern-b">no <span class="ser-highlight">sepas</span> pintar, puedes venir al taller.</span><button class="speak-button" onclick="speakElementText('pattern-b',this)">🔊</button></div><div class="pattern-row"><strong>A pesar de que</strong><span id="pattern-c">no <span class="tener-highlight">estudié</span> Arte, pintar siempre me gustó.</span><button class="speak-button" onclick="speakElementText('pattern-c',this)">🔊</button></div></div><div class="reveal-box"><button class="button-secondary" onclick="togglePattern()" data-lang-key="btn_reveal_pattern">Reveal what to notice</button><div class="reveal-answer" id="pattern-answer"><strong class="ser-highlight">NO IMPORTA / AUNQUE → SUBJUNCTIVE</strong><br><strong class="tener-highlight">A PESAR DE QUE → INDICATIVE</strong><p class="micro-note" data-lang-key="pattern_note">The source also notes that AUNQUE can use the indicative in certain contexts.</p></div></div></section>
+<section class="how-card"><h3 data-lang-key="how_check_title">5. Quick understanding check</h3><p data-lang-key="how_check_desc">Two quick predictions—then move to the Practice Lab.</p><div class="quick-check-grid"><div class="quick-check-item"><p>Aunque no ___ pintar, puedes participar.</p><div class="quick-actions"><button class="touch-choice" onclick="quickCheck(this,'sepas','sepas')">sepas</button><button class="touch-choice" onclick="quickCheck(this,'sepas','sabes')">sabes</button></div><div class="feedback-mini"></div></div><div class="quick-check-item"><p>A pesar de que no ___ Arte, pintar siempre me gustó.</p><div class="quick-actions"><button class="touch-choice" onclick="quickCheck(this,'estudié','estudie')">estudie</button><button class="touch-choice" onclick="quickCheck(this,'estudié','estudié')">estudié</button></div><div class="feedback-mini"></div></div></div><details class="reference-panel"><summary data-lang-key="reference_summary">Open the visual reference.</summary><div class="reference-grid"><div class="mini-conj"><h4 class="ser-highlight">SUBJUNCTIVE</h4><table><tr><th>Connector</th><th>Model</th></tr><tr><td>No importa</td><td>qué ideas <strong>tengas</strong></td></tr><tr><td>Aunque</td><td>no <strong>sepas</strong> pintar</td></tr></table></div><div class="mini-conj"><h4 class="tener-highlight">INDICATIVE</h4><table><tr><th>Connector</th><th>Model</th></tr><tr><td>A pesar de que</td><td>no <strong>estudié</strong> Arte</td></tr></table></div></div><p class="micro-note">🔔 Aunque can also be used with the indicative in certain contexts.</p></details></section>
+</div>
+
+<div id="tab-practica" class="main-tab-content"><h2 data-lang-key="practice_title">Dynamic Practice Lab</h2>
+<div class="quiz-section"><div class="section-header"><h3 data-lang-key="practice_quiz_title">Part 1: Quick Quiz (20 Bank)</h3><button onclick="generateQuiz()" class="button-secondary" data-lang-key="btn_new_quiz">🔄 New Questions</button></div><p data-lang-key="practice_quiz_desc">Choose the form that completes the concessive structure.</p><div id="quiz-container"></div></div>
+<div class="quiz-section"><div class="section-header"><h3 data-lang-key="practice_story_title">Part 2: Interactive Story (20 Bank)</h3><button onclick="generateStory()" class="button-secondary" data-lang-key="btn_new_story">🔄 New Story</button></div><p data-lang-key="practice_story_desc">Complete the paragraph.</p><div id="story-container" class="interactive-story"></div><button id="check-story-btn" class="button-primary mt-4" onclick="checkStory()" data-lang-key="practice_btn_check_story">Check Answers</button><div id="story-feedback" class="feedback-area mt-4"></div></div>
+<div class="quiz-section" style="border-bottom:none"><div class="section-header"><h3 data-lang-key="practice_drag_title">Part 3: Concept Sorter (20 Bank)</h3><button onclick="generateDragDrop()" class="button-secondary" data-lang-key="btn_new_sorter">🔄 New Sorter</button></div><p data-lang-key="practice_drag_desc">Sort 10 random examples by the mood shown in the concessive clause.</p><div id="items-to-sort"><p><strong data-lang-key="practice_drag_items">Drag these phrases:</strong></p><div id="drag-items-pool"></div></div><div class="sorter-container"><div class="dropzone" id="zone-subjunctive" data-zone="subjunctive"><h4 class="ser-highlight">SUBJUNCTIVE</h4></div><div class="dropzone" id="zone-indicative" data-zone="indicative"><h4 class="tener-highlight">INDICATIVE</h4></div></div><button class="button-primary mt-4" onclick="checkDragDrop()" data-lang-key="practice_btn_check_sort">Check Sorter</button><div id="drag-feedback" class="feedback-area mt-4"></div></div></div>
+
+<div id="tab-flashcards" class="main-tab-content"><h2 data-lang-key="flash_title">Interactive Flashcards</h2><p class="text-center" data-lang-key="flash_desc">Spanish on front, English + pattern on back. Click to flip!</p><div class="flashcard-app"><div class="flashcard-container" onclick="flipCard()"><div class="flashcard" id="flashcard"><div class="card-face card-front" id="card-front"></div><div class="card-face card-back" id="card-back"></div></div></div><div class="flashcard-nav"><button onclick="prevCard()" class="button-secondary" data-lang-key="flash_btn_prev">⬅️ Prev</button><button onclick="nextCard()" class="button-primary" data-lang-key="flash_btn_next">Next ➡️</button></div></div></div>
+</main></div>
+<script>
+const quizBank=[
+['No importa qué ideas ___, serás bien recibido.','tengas','tienes','No importa + subjunctive.'],['Aunque no ___ pintar, puedes venir al taller.','sepas','sabes','Aunque + subjunctive in this source pattern.'],['A pesar de que no ___ Arte, pintar siempre me gustó.','estudié','estudie','A pesar de que + indicative in the source model.'],['No importa qué experiencia ___, puedes participar.','tengas','tienes','No importa + subjunctive.'],['Aunque no ___ muchos materiales, puedes crear algo.','tengas','tienes','Aunque + subjunctive in this source pattern.'],['A pesar de que ___ poco tiempo, terminé el dibujo.','tenía','tuviera','A pesar de que + indicative in this source pattern.'],['No importa dónde ___, puedes compartir tu arte.','vivas','vives','No importa + subjunctive.'],['Aunque no ___ al artista, puedes analizar la obra.','conozcas','conoces','Aunque + subjunctive in this source pattern.'],['A pesar de que ___ cansado, fui al taller.','estaba','estuviera','A pesar de que + indicative in this source pattern.'],['No importa qué estilo ___, tu idea cuenta.','prefieras','prefieres','No importa + subjunctive.'],['Aunque no ___ dibujar bien, puedes practicar.','puedas','puedes','Aunque + subjunctive in this source pattern.'],['A pesar de que ___ difícil, continué trabajando.','era','fuera','A pesar de que + indicative in this source pattern.'],['No importa cuánto tiempo ___, empieza con una idea.','tengas','tienes','No importa + subjunctive.'],['Aunque no ___ experiencia, únete al grupo.','tengas','tienes','Aunque + subjunctive in this source pattern.'],['A pesar de que no me ___ el color, terminé el mural.','gustaba','gustara','A pesar de que + indicative in this source pattern.'],['No importa quién ___, puedes ser creativo.','seas','eres','No importa + subjunctive.'],['Aunque ___ nervioso, presenta tu trabajo.','estés','estás','Aunque + subjunctive in this source pattern.'],['A pesar de que ___ lejos, llegué a tiempo.','vivía','viviera','A pesar de que + indicative in this source pattern.'],['No importa qué materiales ___, crea tu diseño.','uses','usas','No importa + subjunctive.'],['Aunque no ___ la respuesta, puedes hacer una pregunta.','sepas','sabes','Aunque + subjunctive in this source pattern.']
+].map((x,i)=>({id:i+1,es:x[0],correct:x[1],wrong:x[2],rule:x[3]}));
+const storyBank=[
+'No importa qué experiencia {tengas|tienes}, puedes venir al taller. Aunque no {sepas|sabes} pintar, puedes aprender con el grupo.',
+'Aunque no {tengas|tienes} muchos materiales, puedes empezar. No importa qué idea {elijas|eliges}, lo importante es crear.',
+'A pesar de que {estaba|estuviera} cansado, fui al taller. A pesar de que {tenía|tuviera} poco tiempo, terminé mi dibujo.',
+'No importa dónde {vivas|vives}, puedes compartir tu arte. Aunque no {conozcas|conoces} a otros artistas, puedes participar.',
+'Aunque no {puedas|puedes} dibujar perfectamente, puedes practicar. No importa cuánto tiempo {tengas|tienes}, empieza con algo pequeño.',
+'A pesar de que no {estudié|estudie} Arte, pintar siempre me gustó. A pesar de que {era|fuera} difícil, seguí practicando.',
+'No importa quién {seas|eres}, puedes ser creativo. Aunque {estés|estás} nervioso, puedes mostrar tu trabajo.',
+'Aunque no {sepas|sabes} qué pintar, observa tu comunidad. No importa qué tema {escojas|escoges}, explica tu conexión.',
+'A pesar de que {vivía|viviera} lejos, llegué a tiempo. A pesar de que {llovía|lloviera}, el taller continuó.',
+'No importa qué materiales {uses|usas}, piensa en tu mensaje. Aunque no {tengas|tienes} pintura, puedes dibujar.',
+'Aunque no {conozcas|conoces} la técnica, inténtalo. No importa qué resultado {obtengas|obtienes}, reflexiona sobre el proceso.',
+'A pesar de que {hacía|hiciera} frío, pintamos afuera. A pesar de que el espacio {era|fuera} pequeño, trabajamos juntos.',
+'No importa qué colores {prefieras|prefieres}, crea contraste. Aunque no {entiendas|entiendes} todo al principio, sigue observando.',
+'Aunque no {veas|ves} una solución inmediata, prueba otra idea. No importa qué camino {tomes|tomas}, justifica tu decisión.',
+'A pesar de que no me {gustaba|gustara} el boceto, lo terminé. A pesar de que {tenía|tuviera} errores, aprendí del proceso.',
+'No importa qué estilo {elijas|eliges}, comunica una idea. Aunque no {seas|eres} experto, puedes explicar tus decisiones.',
+'Aunque no {tengas|tienes} experiencia, participa. No importa qué preguntas {hagas|haces}, escucha las ideas del grupo.',
+'A pesar de que {estábamos|estuviéramos} ocupados, terminamos el mural. A pesar de que {faltaba|faltara} tiempo, colaboramos bien.',
+'No importa cuánto {practiques|practicas}, siempre puedes aprender algo nuevo. Aunque no {logres|logras} todo hoy, continúa mañana.',
+'Aunque no {sepas|sabes} la respuesta, pregunta. No importa qué duda {tengas|tienes}, puedes pedir ayuda.'
+];
+const dragPool=[
+['No importa qué ideas tengas','subjunctive'],['Aunque no sepas pintar','subjunctive'],['No importa qué experiencia tengas','subjunctive'],['Aunque no tengas materiales','subjunctive'],['No importa dónde vivas','subjunctive'],['Aunque no conozcas al artista','subjunctive'],['No importa qué estilo prefieras','subjunctive'],['Aunque estés nervioso','subjunctive'],['No importa quién seas','subjunctive'],['Aunque no puedas dibujar','subjunctive'],
+['A pesar de que no estudié Arte','indicative'],['A pesar de que estaba cansado','indicative'],['A pesar de que tenía poco tiempo','indicative'],['A pesar de que era difícil','indicative'],['A pesar de que vivía lejos','indicative'],['A pesar de que llovía','indicative'],['A pesar de que hacía frío','indicative'],['A pesar de que el espacio era pequeño','indicative'],['A pesar de que faltaba tiempo','indicative'],['A pesar de que no me gustaba el boceto','indicative']
+].map(x=>({text:x[0],type:x[1]}));
+const flashcards=[
+['No importa qué ideas tengas.','No matter what ideas you have.','No importa + subjunctive'],['Aunque no sepas pintar.','Even if you do not know how to paint.','Aunque + subjunctive (source pattern)'],['A pesar de que no estudié Arte.','Even though I did not study Art.','A pesar de que + indicative (source pattern)'],['cláusula concesiva','concessive clause','Introduces an obstacle or contrasting idea'],['cláusula principal','main clause','The main action still happens'],['tengas','you may have / you have','subjunctive form of tener'],['sepas','you may know / you know','subjunctive form of saber'],['estudié','I studied','preterite indicative'],['No importa qué experiencia tengas, puedes venir a pintar.','No matter what experience you have, you can come and paint.','Concessive clause + main clause'],['Puedes venir a pintar, no importa qué experiencia tengas.','You can come and paint, no matter what experience you have.','Concessive clause can move to the end'],['Aunque no tengas experiencia, puedes participar.','Even if you do not have experience, you can participate.','Obstacle does not stop action'],['A pesar de que estaba cansado, fui al taller.','Even though I was tired, I went to the workshop.','Indicative model'],['No importa dónde vivas, puedes compartir tu arte.','No matter where you live, you can share your art.','No importa + subjunctive'],['Aunque no conozcas la técnica, inténtalo.','Even if you do not know the technique, try it.','Aunque + subjunctive'],['A pesar de que hacía frío, pintamos afuera.','Even though it was cold, we painted outside.','Indicative model'],['obstáculo ≠ detener la acción','obstacle ≠ stop the action','Core idea of concessive clauses'],['subjuntivo','subjunctive','Mood shown after No importa and Aunque in the source'],['indicativo','indicative','Mood shown after A pesar de que in the source'],['Aunque + indicativo','Although + indicative','The source notes this is possible in certain contexts'],['inicio ↔ final','beginning ↔ end','Concessive clause can appear at either position']
+].map(x=>({front:x[0],back:x[1],rule:x[2]}));
+let currentLanguage='en';
+const uiStrings={en:{header_title:'CONCESSIVE CLAUSES',header_subtitle:'Expressing an obstacle that does not stop the action',tab_metaphor:'🌟 The Big Idea',tab_formation:'✍️ How It Works',tab_practice:'🎮 Practice Lab',tab_flashcards:'📇 Flashcards',metaphor_title:'Obstacle ≠ Stop',obstacle_title:'CONCESSIVE CLAUSE',obstacle_desc:'Introduces an <strong>obstacle, difficulty, or contrasting idea</strong>.',main_title:'MAIN CLAUSE',main_desc:'The action still happens <strong>despite</strong> that obstacle.',big_rule:'The obstacle is real in the sentence, but it does not prevent the main action.',viz_video_title:'Video Tutorial: Concessive Clauses',viz_title:'Interactive Structure Visualizer',viz_desc:'Choose a connector to see the structure and hear a model.',form_title:'How It Works',how_explorer_title:'1. See the two-part structure',how_explorer_desc:'Tap a connector. Watch the concessive clause and the main clause work together.',how_explorer_note:'First notice the connector. Then notice the verb form inside the concessive clause.',how_decision_title:'2. Which mood belongs here?',how_decision_desc:'Use the source pattern: NO IMPORTA and this use of AUNQUE take the subjunctive; A PESAR DE QUE is shown with the indicative.',how_builder_title:'3. Build the sentence',how_builder_desc:'Choose the connector and the main idea. The app builds the visual path.',builder_connector:'Connector',builder_idea:'Situation',how_notice_title:'4. Notice the pattern',how_notice_desc:'Compare the highlighted verbs before revealing the pattern.',btn_reveal_pattern:'Reveal what to notice',pattern_note:'The source also notes that AUNQUE can use the indicative in certain contexts.',how_check_title:'5. Quick understanding check',how_check_desc:'Two quick predictions—then move to the Practice Lab.',reference_summary:'Open the visual reference.',practice_title:'Dynamic Practice Lab',practice_quiz_title:'Part 1: Quick Quiz (20 Bank)',practice_quiz_desc:'Choose the form that completes the concessive structure.',practice_story_title:'Part 2: Interactive Story (20 Bank)',practice_story_desc:'Complete the paragraph.',practice_btn_check_story:'Check Answers',practice_drag_title:'Part 3: Concept Sorter (20 Bank)',practice_drag_desc:'Sort 10 random examples by the mood shown in the concessive clause.',practice_drag_items:'Drag these phrases:',practice_btn_check_sort:'Check Sorter',btn_new_quiz:'🔄 New Questions',btn_new_story:'🔄 New Story',btn_new_sorter:'🔄 New Sorter',flash_title:'Interactive Flashcards',flash_desc:'Spanish on front, English + pattern on back. Click to flip!',flash_btn_prev:'⬅️ Prev',flash_btn_next:'Next ➡️'},es:{header_title:'CLÁUSULAS CONCESIVAS',header_subtitle:'Expresar un obstáculo que no detiene la acción',tab_metaphor:'🌟 La Gran Idea',tab_formation:'✍️ Cómo Funciona',tab_practice:'🎮 Laboratorio de Práctica',tab_flashcards:'📇 Tarjetas',metaphor_title:'Obstáculo ≠ Detener',obstacle_title:'CLÁUSULA CONCESIVA',obstacle_desc:'Introduce un <strong>obstáculo, dificultad o idea de contraste</strong>.',main_title:'CLÁUSULA PRINCIPAL',main_desc:'La acción ocurre <strong>a pesar</strong> del obstáculo.',big_rule:'El obstáculo aparece en la oración, pero no impide la acción principal.',viz_video_title:'Video Tutorial: Cláusulas concesivas',viz_title:'Visualizador interactivo de estructura',viz_desc:'Elige un conector para ver la estructura y escuchar un modelo.',form_title:'Cómo funciona',how_explorer_title:'1. Mira la estructura de dos partes',how_explorer_desc:'Toca un conector. Observa cómo trabajan juntas la cláusula concesiva y la principal.',how_explorer_note:'Primero identifica el conector. Después observa la forma verbal dentro de la cláusula concesiva.',how_decision_title:'2. ¿Qué modo corresponde?',how_decision_desc:'Usa el patrón de la fuente: NO IMPORTA y este uso de AUNQUE llevan subjuntivo; A PESAR DE QUE aparece con indicativo.',how_builder_title:'3. Construye la oración',how_builder_desc:'Elige el conector y la situación. La app construye la ruta visual.',builder_connector:'Conector',builder_idea:'Situación',how_notice_title:'4. Descubre el patrón',how_notice_desc:'Compara los verbos resaltados antes de revelar el patrón.',btn_reveal_pattern:'Revelar qué debes notar',pattern_note:'La fuente también indica que AUNQUE puede usarse con indicativo en ciertos contextos.',how_check_title:'5. Comprobación rápida',how_check_desc:'Dos predicciones rápidas; después continúa al Laboratorio de Práctica.',reference_summary:'Abre la referencia visual.',practice_title:'Laboratorio de Práctica Dinámica',practice_quiz_title:'Parte 1: Quiz rápido (Banco de 20)',practice_quiz_desc:'Elige la forma que completa la estructura concesiva.',practice_story_title:'Parte 2: Historia interactiva (Banco de 20)',practice_story_desc:'Completa el párrafo.',practice_btn_check_story:'Revisar respuestas',practice_drag_title:'Parte 3: Clasificador de conceptos (Banco de 20)',practice_drag_desc:'Clasifica 10 ejemplos aleatorios según el modo de la cláusula concesiva.',practice_drag_items:'Arrastra estas frases:',practice_btn_check_sort:'Revisar clasificador',btn_new_quiz:'🔄 Nuevas preguntas',btn_new_story:'🔄 Nueva historia',btn_new_sorter:'🔄 Nuevo clasificador',flash_title:'Flashcards interactivas',flash_desc:'Español al frente, inglés + patrón atrás. ¡Haz clic para voltear!',flash_btn_prev:'⬅️ Anterior',flash_btn_next:'Siguiente ➡️'}};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let premiumVoice=null,availableVoices=[];function scoreSpanishVoice(v){const n=(v.name||'').toLowerCase(),l=(v.lang||'').toLowerCase();let s=0;if(l==='es-us')s+=60;else if(l.startsWith('es'))s+=40;if(/premium|enhanced|neural|natural|personal/.test(n))s+=55;if(/m[oó]nica|paulina|jorge|diego|luciana|marta|marisol|carlos|google|siri/.test(n))s+=20;if(v.localService)s+=8;return s}function loadVoices(){if(!('speechSynthesis'in window))return[];availableVoices=speechSynthesis.getVoices()||[];const es=availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('es')).sort((a,b)=>scoreSpanishVoice(b)-scoreSpanishVoice(a));premiumVoice=es[0]||null;return es}if('speechSynthesis'in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;setTimeout(loadVoices,250);setTimeout(loadVoices,1200)}function speak(text,btn=null){if(!('speechSynthesis'in window)||!text)return;loadVoices();speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim());u.lang=premiumVoice?.lang||'es-US';if(premiumVoice)u.voice=premiumVoice;u.rate=.82;u.pitch=1;u.volume=1;if(btn){btn.classList.add('speaking');u.onend=u.onerror=()=>btn.classList.remove('speaking')}speechSynthesis.speak(u)}window.speakElementText=(id,b)=>{const e=document.getElementById(id);if(e)speak(e.textContent,b)};window.speakPrompt=(t,b)=>speak(String(t).replace(/_{2,}/g,' ').replace(/\{[^}]+\}/g,' '),b);
+function updateLanguage(){document.querySelectorAll('[data-lang-key]').forEach(el=>{const k=el.dataset.langKey,v=uiStrings[currentLanguage][k];if(v!==undefined)el.innerHTML=v})}document.getElementById('lang-toggle').onclick=()=>{currentLanguage=currentLanguage==='en'?'es':'en';updateLanguage()};document.getElementById('theme-toggle').onclick=()=>document.body.classList.toggle('dark-mode');window.changeMainTab=(e,id)=>{document.querySelectorAll('.main-tab-content').forEach(x=>x.classList.remove('is-active'));document.querySelectorAll('.main-tab-link').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('is-active');e.currentTarget.classList.add('active')};
+const viz={noimporta:{c:'No importa',cl:'qué experiencia tengas',m:'puedes venir a pintar.',ex:'No importa qué experiencia tengas, puedes venir a pintar.'},aunque:{c:'Aunque',cl:'no sepas pintar',m:'puedes venir al taller.',ex:'Aunque no sepas pintar, puedes venir al taller.'},apesar:{c:'A pesar de que',cl:'no estudié Arte',m:'pintar siempre me gustó.',ex:'A pesar de que no estudié Arte, pintar siempre me gustó.'}};window.setVisualizer=k=>{const d=viz[k],m=k==='apesar'?'tener':'ser';document.getElementById('viz-display').innerHTML=`<span class="formula-part ${m}">${d.c}</span><span class="formula-part">+</span><span class="formula-part ${m}">${d.cl}</span><span class="formula-part">→</span><span class="formula-part">${d.m}</span>`;document.getElementById('viz-example').textContent=d.ex};setVisualizer('noimporta');
+window.selectConnector=(k,b)=>{document.querySelectorAll('#connector-buttons .touch-choice').forEach(x=>x.classList.remove('active-ser','active-tener'));b.classList.add(k==='apesar'?'active-tener':'active-ser');const d=viz[k];document.getElementById('map-connector').textContent=d.c.toUpperCase();document.getElementById('map-concessive').textContent=d.cl;document.getElementById('map-main').textContent=d.m;document.getElementById('map-full').textContent=d.ex};const concepts=[{icon:'🧩',name:'NO IMPORTA + ?',correct:'subjunctive',note:'No importa + subjunctive in the source pattern.'},{icon:'🔀',name:'AUNQUE + ?',correct:'subjunctive',note:'The source model uses aunque + subjunctive here.'},{icon:'📌',name:'A PESAR DE QUE + ?',correct:'indicative',note:'The source model shows a pesar de que + indicative.'}];let activeConcept=0;window.setConcept=(i,b)=>{activeConcept=i;document.querySelectorAll('.concept-buttons .touch-choice').forEach(x=>x.classList.remove('active-ser','active-tener'));b.classList.add(i===2?'active-tener':'active-ser');document.getElementById('concept-icon').textContent=concepts[i].icon;document.getElementById('concept-name').textContent=concepts[i].name;document.getElementById('concept-feedback').className='feedback-mini'};window.chooseMood=choice=>{const d=concepts[activeConcept],f=document.getElementById('concept-feedback');f.className='feedback-mini show '+(choice===d.correct?'correct':'try');f.innerHTML=choice===d.correct?'✓ '+d.note:'Not yet. Look at the connector and try the other mood.'};
+let builderConnector='noimporta',builderIdea=0;const builderData={noimporta:[['qué experiencia tengas','puedes venir a pintar.'],['qué técnica uses','puedes crear algo.'],['qué ideas tengas','puedes participar.']],aunque:[['no tengas experiencia','puedes venir a pintar.'],['no sepas pintar','puedes venir al taller.'],['no estudies Arte','puedes participar.']],apesar:[['no tenía experiencia','fui al taller.'],['no sabía pintar','seguí practicando.'],['no estudié Arte','pintar siempre me gustó.']]};function renderBuilder(){const d=builderData[builderConnector][builderIdea],c=builderConnector==='noimporta'?'No importa':builderConnector==='aunque'?'Aunque':'A pesar de que',m=builderConnector==='apesar'?'INDICATIVE':'SUBJUNCTIVE',cls=builderConnector==='apesar'?'tener':'ser';document.getElementById('builder-path').innerHTML=`<span class="visual-step ${cls}">${c}</span><span class="visual-arrow">+</span><span class="visual-step ${cls}">${m}</span><span class="visual-arrow">→</span><span class="visual-step">MAIN CLAUSE</span>`;document.getElementById('builder-result').textContent=`${c} ${d[0]}, ${d[1]}`};window.setBuilderConnector=(k,b)=>{builderConnector=k;document.querySelectorAll('#builder-connectors .touch-choice').forEach(x=>x.classList.remove('active-ser','active-tener'));b.classList.add(k==='apesar'?'active-tener':'active-ser');renderBuilder()};window.setBuilderIdea=(i,b)=>{builderIdea=i;document.querySelectorAll('#builder-ideas .touch-choice').forEach(x=>x.classList.remove('active-ser'));b.classList.add('active-ser');renderBuilder()};renderBuilder();window.togglePattern=()=>document.getElementById('pattern-answer').classList.toggle('show');window.quickCheck=(b,c,ch)=>{const f=b.closest('.quick-check-item').querySelector('.feedback-mini');f.className='feedback-mini show '+(c===ch?'correct':'try');f.textContent=c===ch?'✓ Correct':'Not yet. Try the other form.'};
+function generateQuiz(){const c=document.getElementById('quiz-container');c.innerHTML='';shuffle([...quizBank]).slice(0,4).forEach((q,i)=>{const d=document.createElement('div');d.className='quiz-question';d.dataset.correct=q.correct;d.dataset.rule=q.rule;d.dataset.prompt=q.es;const opts=shuffle([q.correct,q.wrong]).map(o=>`<button type="button" data-option="${o}" onclick="checkQuizAnswer(this)">${o}</button>`).join('');d.innerHTML=`<p>${i+1}. <span>${q.es.replace('___','_____')}</span><button class="speak-button" onclick="speakPrompt(this.closest('.quiz-question').dataset.prompt,this)">🔊</button></p><div class="quiz-options">${opts}</div><div class="feedback-area"></div>`;c.appendChild(d)})}window.checkQuizAnswer=b=>{const q=b.closest('.quiz-question'),ok=b.dataset.option===q.dataset.correct,f=q.querySelector('.feedback-area');q.querySelectorAll('.quiz-options button').forEach(x=>x.disabled=true);f.className='feedback-area '+(ok?'correct':'incorrect');f.textContent=ok?'✅ Correct! '+q.dataset.rule:'❌ Try again next round. '+q.dataset.rule};
+function generateStory(){const c=document.getElementById('story-container'),f=document.getElementById('story-feedback');f.className='feedback-area mt-4';f.style.display='none';let s=storyBank[Math.floor(Math.random()*storyBank.length)];c.innerHTML=s.replace(/\{([^}]+)\}/g,(m,o)=>{const a=o.split('|'),correct=a[0],opts=shuffle([...a]);return `<select data-correct="${correct}"><option value="" disabled selected>---</option>${opts.map(x=>`<option value="${x}">${x}</option>`).join('')}</select>`})}window.checkStory=()=>{const a=[...document.querySelectorAll('#story-container select')];let n=0;a.forEach(s=>{s.classList.remove('correct-sel','incorrect-sel');if(s.value===s.dataset.correct){s.classList.add('correct-sel');n++}else s.classList.add('incorrect-sel')});const f=document.getElementById('story-feedback');f.className='feedback-area mt-4 '+(n===a.length?'correct':'incorrect');f.style.display='block';f.textContent=n===a.length?'🌟 Perfecto! All answers are correct.':`⚠️ You got ${n} out of ${a.length} correct. Check the red ones.`};
+function generateDragDrop(){const pool=document.getElementById('drag-items-pool');pool.innerHTML='';['subjunctive','indicative'].forEach(t=>document.getElementById('zone-'+t).querySelectorAll('.draggable').forEach(e=>e.remove()));const f=document.getElementById('drag-feedback');f.className='feedback-area mt-4';f.style.display='none';shuffle([...dragPool]).slice(0,10).forEach((it,i)=>{const e=document.createElement('div');e.className='draggable';e.draggable=true;e.id='drag-'+i;e.dataset.type=it.type;e.textContent=it.text;e.addEventListener('dragstart',()=>e.classList.add('dragging'));e.addEventListener('dragend',()=>e.classList.remove('dragging'));let ghost=null,ox=0,oy=0,az=null;const clear=()=>{if(az)az.classList.remove('drag-over');az=null;if(ghost)ghost.remove();ghost=null;e.classList.remove('dragging')};e.addEventListener('touchstart',ev=>{if(ev.touches.length!==1)return;const t=ev.touches[0],r=e.getBoundingClientRect();ox=t.clientX-r.left;oy=t.clientY-r.top;ghost=e.cloneNode(true);ghost.removeAttribute('id');ghost.classList.add('drag-touch-ghost');ghost.style.width=r.width+'px';ghost.style.height=r.height+'px';ghost.style.left=t.clientX-ox+'px';ghost.style.top=t.clientY-oy+'px';document.body.appendChild(ghost);e.classList.add('dragging');ev.preventDefault()},{passive:false});e.addEventListener('touchmove',ev=>{if(!ghost||ev.touches.length!==1)return;const t=ev.touches[0];ghost.style.left=t.clientX-ox+'px';ghost.style.top=t.clientY-oy+'px';const u=document.elementFromPoint(t.clientX,t.clientY),z=u?u.closest('.dropzone,#drag-items-pool'):null;if(z!==az){if(az)az.classList.remove('drag-over');az=z;if(az?.classList.contains('dropzone'))az.classList.add('drag-over')}ev.preventDefault()},{passive:false});e.addEventListener('touchend',ev=>{if(!ghost)return;const t=ev.changedTouches[0],u=document.elementFromPoint(t.clientX,t.clientY),z=u?u.closest('.dropzone,#drag-items-pool'):null;if(z)z.appendChild(e);clear();ev.preventDefault()},{passive:false});e.addEventListener('touchcancel',clear);pool.appendChild(e)})}document.querySelectorAll('.dropzone,#drag-items-pool').forEach(z=>{z.addEventListener('dragover',e=>{e.preventDefault();if(z.classList.contains('dropzone'))z.classList.add('drag-over')});z.addEventListener('dragleave',()=>z.classList.remove('drag-over'));z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('drag-over');const d=document.querySelector('.dragging');if(d)z.appendChild(d)})});window.checkDragDrop=()=>{let err=0,total=0;['subjunctive','indicative'].forEach(t=>document.getElementById('zone-'+t).querySelectorAll('.draggable').forEach(x=>{total++;const ok=x.dataset.type===t;x.style.borderColor=ok?'var(--green)':'var(--red)';x.style.color=ok?'var(--green)':'var(--red)';if(!ok)err++}));const f=document.getElementById('drag-feedback');f.className='feedback-area mt-4 '+(total===10&&err===0?'correct':'incorrect');f.style.display='block';f.textContent=total<10?'⚠️ Please sort all 10 items.':err?'⚠️ '+err+' item(s) need another look.':'🌟 Excellent! Everything is sorted correctly.'};
+let currentCardIndex=0;function renderFlashcard(){const c=document.getElementById('flashcard');c.classList.remove('is-flipped');setTimeout(()=>{const d=flashcards[currentCardIndex];document.getElementById('card-front').innerHTML=`<span id="flash-front-text">${d.front}</span> <button class="speak-button" onclick="event.stopPropagation();speakElementText('flash-front-text',this)">🔊</button>`;document.getElementById('card-back').innerHTML=`${d.back}<p>Pattern: ${d.rule}</p>`},120)}window.flipCard=()=>document.getElementById('flashcard').classList.toggle('is-flipped');window.prevCard=()=>{currentCardIndex=(currentCardIndex+flashcards.length-1)%flashcards.length;renderFlashcard()};window.nextCard=()=>{currentCardIndex=(currentCardIndex+1)%flashcards.length;renderFlashcard()};
+function createFloatingEmojis(){const bg=document.getElementById('floating-bg'),em=['🚧','➡️','🎨','🖌️','🧩','🔀','💡','🖼️'];setInterval(()=>{if(document.hidden)return;const e=document.createElement('div');e.className='floating-emoji';e.textContent=em[Math.floor(Math.random()*em.length)];e.style.left=Math.random()*95+'vw';e.style.animationDuration=Math.random()*10+10+'s';bg.appendChild(e);setTimeout(()=>e.remove(),20000)},1800)}updateLanguage();generateQuiz();generateStory();generateDragDrop();renderFlashcard();createFloatingEmojis();
+</script></body></html>
